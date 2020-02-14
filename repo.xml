@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE repositories SYSTEM "/dtd/repositories.dtd">
+<repositories xmlns="" version="1.0">
+  <repo quality="experimental" status="unofficial">
+    <name>gentoo_cn</name>
+    <description>original Apps without Wine that could be installed in gentoo</description>
+    <homepage>http://www.troysung.com/</homepage>
+    <owner type="project">
+      <email>troysung@163.com</email>
+      <name>gentoo_cn</name>
+    </owner>
+    <source type="git">https://github.com/troysung/gentoo_cn.git</source>
+  </repo>
+</repositories>

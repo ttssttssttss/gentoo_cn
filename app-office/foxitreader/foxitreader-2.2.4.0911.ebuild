@@ -24,3 +24,7 @@ S="${WORKDIR}"
 src_unpack() {
     unpack FoxitReader.enu.setup.2.4.4.0911.x64.run.tar.gz
 }
+
+src_install() {
+	bash "$S/*.run"
+}

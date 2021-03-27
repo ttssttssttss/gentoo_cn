@@ -7,14 +7,15 @@ inherit unpacker xdg
 MY_PV="$(ver_cut 4)"
 
 DESCRIPTION="WPS Office is an office productivity suite"
-HOMEPAGE="http://www.wps.cn/product/wpslinux/ http://wps-community.org/"
+HOMEPAGE="https://www.wps.cn/product/wpslinux/ http://wps-community.org/"
 
 KEYWORDS="~amd64"
 
-SRC_URI="http://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${MY_PV}/${PN}_${PV}.XA_amd64.deb"
+SRC_URI="https://wdl1.pcfg.cache.wpscdn.com/wpsdl/wpsoffice/download/linux/${MY_PV}/${PN}_${PV}.XA_amd64.deb"
 
 SLOT="0"
 RESTRICT="strip mirror" # mirror as explained at bug #547372
+QA_PREBUILT="*"
 LICENSE="WPS-EULA"
 IUSE=""
 
@@ -23,38 +24,47 @@ IUSE=""
 # ldd /opt/kingsoft/wps-office/office6/wps
 # ldd /opt/kingsoft/wps-office/office6/wpp
 RDEPEND="
+	app-arch/bzip2:0
+	app-arch/xz-utils
+	app-arch/lz4
+	dev-libs/atk
+	dev-libs/expat
+	dev-libs/glib:2
+	dev-libs/libbsd
+	dev-libs/libffi
+	dev-libs/libgcrypt:0
+	dev-libs/libgpg-error
+	dev-libs/libpcre:3
+	dev-libs/nspr
+	dev-libs/nss
+	media-libs/fontconfig:1.0
+	media-libs/freetype:2
+	media-libs/libpng-compat:1.2
+	media-libs/libpng:0
+	sys-apps/attr
+	sys-apps/util-linux
+	sys-apps/dbus
+	sys-apps/tcp-wrappers
+	sys-libs/libcap
+	sys-libs/zlib:0
+	x11-libs/cairo
+	x11-libs/gdk-pixbuf:2
+	x11-libs/gtk+:2
 	x11-libs/libICE
 	x11-libs/libSM
 	x11-libs/libX11
+	x11-libs/libXScrnSaver
+	x11-libs/libXau
+	x11-libs/libXcomposite
+	x11-libs/libXcursor
+	x11-libs/libXdmcp
 	x11-libs/libXext
 	x11-libs/libXrender
-	x11-libs/libxcb
-	media-libs/fontconfig:1.0
-	media-libs/freetype:2
-	dev-libs/glib:2
-	sys-libs/zlib:0
-	media-libs/libpng-compat:1.2
-	virtual/glu
-
-	dev-libs/libpcre:3
-	dev-libs/libffi
-	app-arch/bzip2:0
-	media-libs/libpng:0
-	dev-libs/expat
-	sys-apps/util-linux
-	dev-libs/libbsd
-	x11-libs/libXau
-	x11-libs/libXdmcp
-	sys-apps/dbus
 	x11-libs/libXtst
-	sys-apps/tcp-wrappers
-	net-libs/libasyncns
-	dev-libs/libgcrypt:0
-	app-arch/xz-utils
-	app-arch/lz4
-	sys-libs/libcap
-	dev-libs/libgpg-error
-	sys-apps/attr
+	x11-libs/libXv
+	x11-libs/libxcb
+	x11-libs/pango
+	virtual/glu
 "
 DEPEND=""
 BDEPEND=""
@@ -64,9 +74,7 @@ S="${WORKDIR}"
 src_install() {
 	exeinto /usr/bin
 	exeopts -m0755
-	doexe "${S}"/usr/bin/wps
-	doexe "${S}"/usr/bin/wpp
-	doexe "${S}"/usr/bin/et
+	doexe "${S}"/usr/bin/*
 
 	insinto /usr/share
 	doins -r "${S}"/usr/share/{applications,desktop-directories,icons,mime,templates}
@@ -74,5 +82,5 @@ src_install() {
 	insinto /opt/kingsoft/wps-office
 	doins -r "${S}"/opt/kingsoft/wps-office/{office6,templates}
 
-	fperms 0755 /opt/kingsoft/wps-office/office6/{wps,wpp,et}
+	fperms 0755 /opt/kingsoft/wps-office/office6/{et,wpp,wps,wpspdf}
 }
